@@ -25,6 +25,7 @@
 
         public abstract void AddGrade(string grade);
 
+        public abstract void GetAllValuesFromList();
 
         public abstract Grades GetGrades();
 

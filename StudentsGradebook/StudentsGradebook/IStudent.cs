@@ -4,7 +4,7 @@ namespace StudentsGradebook
 {
     public interface IStudent
     {
-        public interface IEmployee
+        public interface IStudent
         {
             string FirstName { get; }
 
@@ -20,6 +20,7 @@ namespace StudentsGradebook
 
             void AddGrade(string grade);
 
+            void GetAllValuesFromList();
 
             event GradeAddedDalegate GradeAdded;
 
