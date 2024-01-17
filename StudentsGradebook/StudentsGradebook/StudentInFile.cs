@@ -11,7 +11,7 @@
         public StudentInFile(string firstName, string lastName, string studentClass) 
             : base(firstName, lastName, studentClass)
         {
-            fullFileName = $"{firstName}-{lastName}_{studentClass}_{fileName}";
+            fullFileName = $"{firstName}-{lastName}-{studentClass}_{fileName}";
         }
 
         public override void AddGrade(float grade)
