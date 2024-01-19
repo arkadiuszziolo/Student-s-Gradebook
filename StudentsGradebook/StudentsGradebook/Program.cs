@@ -1,8 +1,7 @@
 ﻿using StudentsGradebook;
 using static StudentsGradebook.IStudent;
 
-Console.WriteLine("Welcome in Student Gradebook console application!");
-Console.WriteLine();
+Console.WriteLine("Welcome in Student Gradebook console application!\n");
 
 bool CloseApp = false;
 
@@ -13,12 +12,13 @@ string studentClass = null;
 while (!CloseApp)
 {
     Console.WriteLine("What you want to do:");
-    Console.WriteLine("1 - write grade to file");
-    Console.WriteLine("2 - write grade to memory");
-    Console.WriteLine("X - close console application");
+    Console.WriteLine("1 - Write grade to file");
+    Console.WriteLine("2 - Write grade to memory");
+    Console.WriteLine("X - Close console application");
 
     try
     {
+        Console.Write("Your choice: ");
         char choiceUser = Console.ReadLine()[0];
         switch (choiceUser)
         {
@@ -48,10 +48,10 @@ void AddGradeInFile()
 {
     while (true)
     {
-        Console.WriteLine("Insert student first name: ");
+        Console.Write("Insert student first name: ");
         firstName = Console.ReadLine().ToUpper();
 
-        Console.WriteLine("Insert student last name: ");
+        Console.Write("Insert student last name: ");
         lastName = Console.ReadLine().ToUpper();
 
         if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
@@ -67,7 +67,7 @@ void AddGradeInFile()
 
     while (true)
     {
-        Console.WriteLine("Insert student class: ");
+        Console.Write("Insert student class: ");
 
         studentClass = Console.ReadLine().ToUpper();
 
@@ -86,12 +86,13 @@ void AddGradeInFile()
 
     void StudentGradeAdded(object sender, EventArgs args)
     {
-        Console.WriteLine("Successfully added grade!");
+        Console.WriteLine("Successfully added grade!\n");
     }
 
     while (true)
     {
         Console.WriteLine("Enter next Student grade or type 'Q' to get result student grades:");
+        Console.Write("Grade: ");
         var input = Console.ReadLine().ToUpper();
         if (input == "Q")
         {
@@ -108,14 +109,15 @@ void AddGradeInFile()
         }
     }
     var result = student.GetGrades();
+    Console.WriteLine("");
     Console.WriteLine($"Result grades student > First Name: {student.FirstName} Last Name: {student.LastName} Class: {student.StudentClass}");
-    Console.WriteLine($"Highest Grade: {result.HighestGrade}");
-    Console.WriteLine($"Lowest Grade: {result.LowestGrade}");
-    Console.WriteLine($"Average Grade: {result.Average}");
+    Console.WriteLine($"Highest Grade: {result.HighestGradeReturnAsString}");
+    Console.WriteLine($"Lowest Grade: {result.LowestGradeReturnAsString}");
+    Console.WriteLine($"Average Grade: {result.Average:N2} ({result.AverageReturnAsString})");
     Console.WriteLine($"Number of grades earned: {result.CountGrades}");
     Console.Write($"All of the student grades: ");
     student.GetAllValuesFromList();
-    Console.WriteLine("");
+    Console.WriteLine("\n");
 }
 
 void AddGradeInMemory()
@@ -123,10 +125,10 @@ void AddGradeInMemory()
 
     while (true)
     {
-        Console.WriteLine("Insert student first name: ");
+        Console.Write("Insert student first name: ");
         firstName = Console.ReadLine().ToUpper();
 
-        Console.WriteLine("Insert student last name: ");
+        Console.Write("Insert student last name: ");
         lastName = Console.ReadLine().ToUpper();
 
         if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
@@ -142,7 +144,7 @@ void AddGradeInMemory()
 
     while (true)
     {
-        Console.WriteLine("Insert student class: ");
+        Console.Write("Insert student class: ");
 
         studentClass = Console.ReadLine().ToUpper();
 
@@ -161,12 +163,13 @@ void AddGradeInMemory()
 
     void StudentGradeAdded(object sender, EventArgs args)
     {
-        Console.WriteLine("Successfully added grade!");
+        Console.WriteLine("Successfully added grade!\n");
     }
 
     while (true)
     {
         Console.WriteLine("Enter next Student grade or type 'Q' to get result student grades:");
+        Console.Write("Grade: ");
         var input = Console.ReadLine().ToUpper();
         if (input == "Q")
         {
@@ -177,20 +180,21 @@ void AddGradeInMemory()
         {
             student.AddGrade(input);
         }
-        catch (Exception e)
+        catch (Exception MessageException)
         {
-            Console.WriteLine($"Exception catched: {e.Message}");
+            Console.WriteLine($"Exception catched: {MessageException.Message}");
         }
     }
     var result = student.GetGrades();
+    Console.WriteLine("");
     Console.WriteLine($"Result grades student > First Name: {student.FirstName} Last Name: {student.LastName} Class: {student.StudentClass}");
-    Console.WriteLine($"Highest Grade: {result.HighestGrade}");
+    Console.WriteLine($"Highest Grade: {result.HighestGradeReturnAsString}");
     Console.WriteLine($"Lowest Grade: {result.LowestGradeReturnAsString}");
     Console.WriteLine($"Average Grade: {result.Average:N2} ({result.AverageReturnAsString})");
     Console.WriteLine($"Number of grades earned: {result.CountGrades}");
     Console.Write($"All of the student grades: ");
     student.GetAllValuesFromList();
-    Console.WriteLine("");
+    Console.WriteLine("\n");
 }
 
 
