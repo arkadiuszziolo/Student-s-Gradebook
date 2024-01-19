@@ -180,7 +180,7 @@
                         Console.Write("+1; ");
                         break;
                     default:
-                        Console.WriteLine("1; ");
+                        Console.Write("1; ");
                         break;
                 }
             }
