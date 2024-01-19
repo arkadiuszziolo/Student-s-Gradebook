@@ -6,6 +6,8 @@ namespace StudentsGradebook
     {
         public interface IStudent
         {
+            event GradeAddedDalegate GradeAdded;
+
             string FirstName { get; }
 
             string LastName { get; }
@@ -16,13 +18,9 @@ namespace StudentsGradebook
 
             void AddGrade(int grade);
 
-            void AddGrade(char grade);
-
             void AddGrade(string grade);
 
             void GetAllValuesFromList();
-
-            event GradeAddedDalegate GradeAdded;
 
             Grades GetGrades();
         }
