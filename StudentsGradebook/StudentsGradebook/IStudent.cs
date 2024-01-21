@@ -4,25 +4,22 @@ namespace StudentsGradebook
 {
     public interface IStudent
     {
-        public interface IStudent
-        {
-            event GradeAddedDalegate GradeAdded;
+        event GradeAddedDalegate GradeAdded;
 
-            string FirstName { get; }
+        string FirstName { get; }
 
-            string LastName { get; }
+        string LastName { get; }
 
-            string StudentClass { get; }
+        string StudentClass { get; }
 
-            void AddGrade(float grade);
+        void AddGrade(float grade);
 
-            void AddGrade(int grade);
+        void AddGrade(int grade);
 
-            void AddGrade(string grade);
+        void AddGrade(string grade);
 
-            void GetAllValuesFromList();
+        void GetAllValuesFromList();
 
-            Grades GetGrades();
-        }
+        Grades GetGrades();
     }
 }
