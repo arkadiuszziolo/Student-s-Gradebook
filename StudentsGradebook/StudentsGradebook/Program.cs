@@ -5,9 +5,9 @@ Console.WriteLine("Welcome in Student Gradebook console application!\n");
 
 bool CloseApp = false;
 
-string firstName = null;
-string lastName = null;
-string studentClass = null;
+string firstName;
+string lastName;
+string studentClass;
 
 while (!CloseApp)
 {
@@ -23,10 +23,10 @@ while (!CloseApp)
         switch (choiceUser)
         {
             case '1':
-                AddGradeInFile();
+                AddGrade(true);
                 break;
             case '2':
-                AddGradeInMemory();
+                AddGrade(false);
                 break;
             case 'X':
             case 'x':
@@ -44,7 +44,7 @@ while (!CloseApp)
 }
 Console.WriteLine("Bye! Press any key to close console application");
 
-void AddGradeInFile()
+void AddGrade(bool writeInFile)
 {
     while (true)
     {
@@ -81,7 +81,9 @@ void AddGradeInFile()
             break;
         }
     }
-    var student = new StudentInFile(firstName, lastName, studentClass);
+    IStudent student = writeInFile
+        ? new StudentInFile(firstName, lastName, studentClass)
+        : new StudentInMemory(firstName, lastName, studentClass);
     student.GradeAdded += StudentGradeAdded;
 
     void StudentGradeAdded(object sender, EventArgs args)
@@ -108,83 +110,11 @@ void AddGradeInFile()
             Console.WriteLine($"Exception catched: {MessageException.Message}");
         }
     }
-    var result = student.GetGrades();
-    Console.WriteLine("");
-    Console.WriteLine($"Result grades student > First Name: {student.FirstName} Last Name: {student.LastName} Class: {student.StudentClass}");
-    Console.WriteLine($"Highest Grade: {result.HighestGradeReturnAsString}");
-    Console.WriteLine($"Lowest Grade: {result.LowestGradeReturnAsString}");
-    Console.WriteLine($"Average Grade: {result.Average:N2} ({result.AverageReturnAsString})");
-    Console.WriteLine($"Number of grades earned: {result.CountGrades}");
-    Console.Write($"All of the student grades: ");
-    student.GetAllValuesFromList();
-    Console.WriteLine("\n");
+    ReturnStatisticsGrade(student);
 }
 
-void AddGradeInMemory()
+void ReturnStatisticsGrade(IStudent student)
 {
-
-    while (true)
-    {
-        Console.Write("Insert student first name: ");
-        firstName = Console.ReadLine().ToUpper();
-
-        Console.Write("Insert student last name: ");
-        lastName = Console.ReadLine().ToUpper();
-
-        if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
-        {
-            break;
-        }
-        else
-        {
-            Console.WriteLine("First name or last name can't be empty!");
-            continue;
-        }
-    }
-
-    while (true)
-    {
-        Console.Write("Insert student class: ");
-
-        studentClass = Console.ReadLine().ToUpper();
-
-        if (studentClass.Length != 2)
-        {
-            Console.WriteLine("Wrong Class!");
-            continue;
-        }
-        else
-        {
-            break;
-        }
-    }
-    var student = new StudentInMemory(firstName, lastName, studentClass);
-    student.GradeAdded += StudentGradeAdded;
-
-    void StudentGradeAdded(object sender, EventArgs args)
-    {
-        Console.WriteLine("Successfully added grade!\n");
-    }
-
-    while (true)
-    {
-        Console.WriteLine("Enter next Student grade or type 'Q' to get result student grades:");
-        Console.Write("Grade: ");
-        var input = Console.ReadLine().ToUpper();
-        if (input == "Q")
-        {
-            break;
-        }
-
-        try
-        {
-            student.AddGrade(input);
-        }
-        catch (Exception MessageException)
-        {
-            Console.WriteLine($"Exception catched: {MessageException.Message}");
-        }
-    }
     var result = student.GetGrades();
     Console.WriteLine("");
     Console.WriteLine($"Result grades student > First Name: {student.FirstName} Last Name: {student.LastName} Class: {student.StudentClass}");
@@ -196,7 +126,3 @@ void AddGradeInMemory()
     student.GetAllValuesFromList();
     Console.WriteLine("\n");
 }
-
-
-
-
